@@ -1,0 +1,16 @@
+Essential:
+1. Motor for opening door both ways
+2. Camera, motion sensor and ultrasonic ranger to detect people
+3. Display to tell what the guests/owner to do
+4. Wireless dongle to communicate with phone
+(need to find out how to always be connected to the door even at long distances)
+5. Button for actual doorbell ringing
+6. Second button to allow manual user exit
+7. Buzzer for alarm/informing user someone is at the door
+8. Raspberry pi to store face ids
+
+Optional:
+1. Temperature sensor to sense surroundings
+(for adjusting components - no idea how to do that)
+2. Light sensor to detect time of day
+(maybe adjusting camera when needed - will need to investigate more)

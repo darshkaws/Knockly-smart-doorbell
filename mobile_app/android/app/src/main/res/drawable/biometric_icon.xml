@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Top Left Corner -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/darkGrey"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M4,12 L4,4 L12,4" />
+
+    <!-- Top Right Corner -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/darkGrey"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M36,4 L44,4 L44,12" />
+
+    <!-- Bottom Left Corner -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/darkGrey"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M4,36 L4,44 L12,44" />
+
+    <!-- Bottom Right Corner -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/darkGrey"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M36,44 L44,44 L44,36" />
+
+    <!-- Eyes -->
+    <path
+        android:strokeWidth="0"
+        android:fillColor="@color/darkGrey"
+        android:pathData="M17,20 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" />
+    <path
+        android:strokeWidth="0"
+        android:fillColor="@color/darkGrey"
+        android:pathData="M29,20 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" />
+
+    <!-- Nose -->
+    <path
+        android:strokeWidth="1"
+        android:strokeColor="@color/darkGrey"
+        android:pathData="M24,21 L24,24" />
+
+    <!-- Smile -->
+    <path
+        android:strokeWidth="2"
+        android:strokeColor="@color/darkGrey"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M18,30 Q24,34 30,30" />
+
+</vector>

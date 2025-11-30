@@ -1,0 +1,199 @@
+Required APIs (Implemented as separate functions or scripts):
+
+Connecting to the pi via the app:
+	(1) If the pi already has an established internet connection [testing with university Wi-Fi and assuming the phone is on the same network]:
+		1) Set the pi up to constantly be discoverable for Bluetooth, while attempting to search for all the nearby Bluetooth connections on the app interface and displaying the SSIDs of the nearby devices
+		2) When the user selects the desired DOORBELL device and inputs a valid password, a connection is attempted to be established and a script is sent to retrieve a certain file that verifies the authenticity of the doorbell (it can just be something like a txt file or something that states that it is in fact a doorbell that is compatible with the software); if the particular file AND passkey/line does not exist within the file, then ask the user to retry connecting with a valid DOORBELL device
+		3) If the device is a valid DOORBELL, attempt to retrieve an IP address through the script that would run upon a successful Bluetooth connection; if this is successful (which it would be in this case), this means that the wifi has already been configured on the pi
+		4) The IP address of the doorbell would be echo'd/sent back through BT from the pi which would be processed by the app as a temporary variable stored during runtime only; the app and pi should save the Bluetooth connection data within the db since it is linked to the account
+		5) With this IP address, the user can connect to the pi through ssh via the same username and password required to sign the Bluetooth connection that is ideally given in the product package, this username and password is then stored on the db as well linked to the doorbell upon the first Bluetooth connection - this allows the app to continue connecting to the ssh server even after the user attempts to change the name and password of the Bluetooth properties of the doorbell/pi itself
+		6) Every time the user attempts to use a setup doorbell, the app would use the account's saved Bluetooth connections to remember and easily restart the connection as needed	
+
+	(2) If the pi is not connected to a network
+		1) Set the pi up as a wireless access point and also have it set constantly to discoverable through Bluetooth; both configurations would use the same SSIDs and passwords
+		2) When the user selects the desired DOORBELL device and inputs a valid password, a connection is attempted to be established and a script is sent to retrieve a certain file that verifies the authenticity of the doorbell (it can just be something like a txt file or something that states that it is in fact a doorbell that is compatible with the software); if the particular file AND passkey/line does not exist within the file, then ask the user to retry connecting with a valid DOORBELL device
+		3) If the device is a valid DOORBELL, attempt to retrieve an IP address through the script that would run upon a successful Bluetooth connection; if this is NOT successful, send message back about the status and have the app run a script as response to enter the same SSID and password as the Bluetooth Connection to connect to the Wireless Access Point of the pi
+		4) When the app (automatically) establishes the connection to the wireless access point, the app can either do the following:
+		4a) Prompt the user to enter the SSID and password of their own device's network
+		4b) Retrieve data about the device's wifi's SSID and password and forward that to the wizard that opens upon connecting to the wireless access point to automatically connect the pi to the device's wifi network
+		5) Once the pi is connected to the wifi, the wireless access point is closed and upon this connection, forwards the IP address back to the app via a script
+		...) Continue similarly to the flow which occurs when connecting to the pi with an established connection...
+
+
+Relevant Resources:
+Github repo for an easy wifi setup via pi's WAP - https://github.com/balena-os/wifi-connect
+Official RaspPi docs for remote access - https://www.raspberrypi.com/documentation/computers/remote-access.html#introduction-to-remote-access
+
+
+
+
+Fetching the pi's live camera feed data from the app via a script [requires ssh connection first]:
+	Dependencies:
+		libcamera
+		rpicam-apps*** [unsure]
+	Approaches:
+		(1) Streaming the camera data via TCP and accessing the TCP address from the app somehow
+		(2) Fetching the encoded data directly [H.264] and then forwarding it to a mediacodec for processing
+
+
+Relevant Resources:
+Official Raspberry pi camera docs - https://www.raspberrypi.com/documentation/computers/camera_software.html
+Official Android Surfaceview docs - https://source.android.com/docs/core/graphics/arch-st
+
+
+Converting the fetched camera feed data into usable data to display on the surface:
+	Basic outline - Will require using Android functions to be able to display the feed from the previous API into something that can be displayed on SurfaceView
+
+
+
+
+Communicating with the pi to have the app directly communicate with the IoT components for manual override:
+	1) Open a ssh connection for the specific doorbell
+	2) Run a bash/sh script from a specific directory specifically related to door control functions when the button is pressed
+	3) The specific bash script run corresponds to the button pressed - open button would run a script called open and same for close button
+
+
+
+
+Communicating with the pi to setup the facial recognition profiles:
+	1) Open a ssh connection for the specific doorbell
+	2) Connect to the sftp server WITHIN ssh server dir
+	3) Access required information from here
+
+
+SFTP server should have these main dirs:
+	Facial profiles [This dir would be populated with the face profiles in whatever format, file or folder - whichever is relevant]
+	Feed history [This dir could be moved to the SSH server itself to provide easier access to rsync if does not work within sftp]
+	[Can add more if required for other functionality - the server always exists so it'll be useful either way]
+**EACH SSH SERVER SHOULD ONLY HAVE INFO ABOUT THEIR OWN DOORBELL AND NOTHING ELSE IN A REAL PRODUCT, THEREFORE THE FTP SERVER WOULD ALSO ONLY HAVE INFO ABOUT ITS OWN DOORBELL**
+
+
+Relevant Resources for SSH and SFTP for the app:
+JSch for Java and Android as a SSH, SFTP library amongst others - https://mvnrepository.com/artifact/com.github.mwiede/jsch
+Official RaspPi docs specifically for rsync, used for the feed history - https://www.raspberrypi.com/documentation/computers/remote-access.html#rsync
+
+
+
+
+Open relevant ssh sessions to execute various scripts to FETCH db data for:
+	When on login page for auth [user login input]: **THIS SHOULD IDEALLY BE STORED WITHIN AN APP DB HOSTED ELSEWHERE, NOT ON THE DOORBELL**
+		Username/email [auth the first user field or faceid login]
+		Password [auth the second user field]
+
+	When login is successful, to display the main user page [username input]: 
+		Displayname/username [to add to header]
+		DoorbellIDs + Doorbell Names linked to username [to populate the page]
+		Alerts for all doorbells [persistent data across the app for alert behaviour]
+
+	When user selects <user settings>: **THIS SHOULD IDEALLY BE STORED WITHIN AN APP DB HOSTED ELSEWHERE, NOT ON THE DOORBELL**
+		User settings [to set toggles correctly]
+
+	When selecting a doorbell [doorbellID, username input]: 
+		User permissions linked to the username [to enable/disable the buttons on the doorbell page]
+
+	When selecting <manage doorbell> within the doorbell [doorbellID input]:
+		Doorbell settings [to set toggles correctly]
+
+	When selecting <manage users> within the doorbell [doorbellID input]:
+		Usernames linked to the doorbell [to populate the page]
+		User roles linked to each username [to set the related roles textbox]
+	
+	When user selects <settings> for a specific user in <manage users> [username input]:
+		User permissions liked to the username [to set toggles correctly]
+
+	When user selects <blocklist> within <manage users> [doorbellID input]:
+		Usernames that are within the doorbellID's blocklist [to populate the page]
+
+	When selecting <manage face profiles> within the doorbell [doorbellID input]: 
+    		Face profile names linked to the doorbell [to populate the page] 
+ 
+	When user selects <blocklist> within <manage face profiles> [doorbellID input]: 
+    		Usernames that are within the doorbellID's blocklist [to populate the page]
+
+
+Open relevant ssh sessions to execute various scripts to MODIFY db data and have the app re-fetch the latest related data when:
+	ADD new data entry:
+		A new user is added: 
+			Username
+			Password
+			Email
+			Display name
+			isAuth [set to false as default until the user authenticates the email]
+		A new doorbell is added to a user, similarly links that username to the list of usernames for the doorbell:
+			Username
+			DoorbellID
+
+			DoorbellID
+			Doorbell Name
+			Doorbell Password
+			Doorbell settings
+			Linked Usernames/Roles/Permissions
+			Linked Face Profiles data
+			Feed History
+			Logs
+		A new face profile is added to a doorbell:
+			DoorbellID
+			Face Profile Data
+		A new role is created within <manager user profiles> of a given doorbell:
+			DoorbellID
+			Role Data
+		A new log is created from the app from any specific activity changes or alerts:
+			DoorbellID
+			Log Info
+	
+
+	DELETE existing data entry:
+		Doorbell is deleted from user doorbells upon being added to its blocklist:
+			Username
+			DoorbellID
+		User profile is deleted from doorbell:
+			DoorbellID
+			Linked User Profile data
+		Face profile is deleted from doorbell:
+			DoorbellID
+			Linked Face Profile data
+		**NOTE FEED HISTORY AND LOGS CAN NOT BE DELETED ON THE DB FROM THE APP, THE DB SHOULD ONLY DELETE ENTRIES AFTER A CERTAIN TIME PERIOD AUTOMATICALLY AND ACT AS A SYNC POINT FOR THE APP; THE APP CAN ONLY DELETE DATA LOCALLY BUT NEVER REQUEST SERVER DELETION IN CASE OF "ACCIDENTS"**
+	
+
+	UPDATE existing data:
+		User details are changed from the login wizards:
+			Username/Email
+			Relevant user detail that is changed like password
+		Session data whenever user logs in:
+			Username
+			SessionID refresh
+			Session duration refresh
+		User details are changed from the user settings:
+			Username
+			Relevant User Detail that is changed
+		User settings are changed:
+			Username
+			User settings
+		Doorbell details are changed from the doorbell settings:
+			DoorbellID
+			Relevant doorbell detail that is changed
+		Doorbell settings are changed:
+			DoorbellID
+			Doorbell Settings
+		User role is changed in <manage users>:
+			DoorbellID
+			Username
+			Role name
+		User permissions are changed in <managed users>:
+			DoorbellID
+			Username
+			User permissions
+		Username is moved to and out of blocklist:
+			DoorbellID
+			Username
+			isBlocked
+		Face profile is renamed:
+			DoorbellID
+			Face Profile ID
+			Face Profile name
+		Face profile is moved to and out of blocklist:
+			DoorbellID
+			Face Profile ID
+			isBlocked
+		
+

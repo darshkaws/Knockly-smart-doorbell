@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Knockly</string>
+    <string name="defaultHeaderTitle">No Title Given</string>
+    <string name="resetPassLink"><u>Forgot Password? Click here to reset it</u></string>
+    <string name="homePageDoorbellSubTitle">Your Doorbells:</string>
+    <string name="buttonMinimiseOptionsTitle">Click to Minimise</string>
+    <string name="buttonExpandOptionsTitle">Click to Expand</string>
+    <string name="buttonFeedHistoryTitle">Feed History</string>
+    <string name="buttonDoorbellLogsTitle">Doorbell Logs</string>
+    <string name="buttonMangeUsersTitle">Manage Users</string>
+    <string name="buttonManageFacesTitle">Manage Faces</string>
+    <string name="buttonManageDoorbellTitle">Manage Doorbell</string>
+    <string name="doorStatusClosedMsg">Door Closed</string>
+    <string name="doorStatusOpenMsg">Door Open</string>
+    <string name="manageFacesPageTitle">Doorbell\'s Faces:</string>
+    <string name="receiveNotifsLabel">Receive Motion Notifications: \n(this device only)</string>
+    <string name="createAccountLink">No account? Create one here</string>
+
+    <string name="addFaceInstructionsTitle">To add a new face to your doorbell:</string>
+    <string name="addFaceInstructions">&#8226; Give the face a name\n\n&#8226; Record a video of the face, this should be 15-30s. Try to include different angles of the face for more accuracy\n\n&#8226; Then just upload the video to your doorbell and you\'re done!\n\n (Note: you must be on the same wifi network as your doorbell to upload a face)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--    <string name="addFaceInstructions">Test</string>-->
+
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".indvDoorbellPage.DoorbellOptionsTabFragment">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/minimiseButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorSecondary"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/buttonMinimiseOptionsTitle"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/down_arrow"
+        app:iconGravity="textStart"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:layout_constraintWidth_percent="1"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MinimiseTabButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/manageUsersButton"
+            style="@style/DoorbellOptionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="2dp"
+            android:minHeight="75dp"
+            android:text="@string/buttonMangeUsersTitle"
+            app:layout_constraintEnd_toStartOf="@+id/manageFacesButton"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <Button
+            android:id="@+id/manageFacesButton"
+            style="@style/DoorbellOptionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:minHeight="75dp"
+            android:text="@string/buttonManageFacesTitle"
+            app:layout_constraintEnd_toStartOf="@id/manageDoorbellButton"
+            app:layout_constraintStart_toEndOf="@id/manageUsersButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <Button
+            android:id="@+id/manageDoorbellButton"
+            style="@style/DoorbellOptionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
+            android:minHeight="75dp"
+            android:text="@string/buttonManageDoorbellTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/manageFacesButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

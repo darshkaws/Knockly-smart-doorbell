@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "690558849781",
+    "project_id": "cm2211group8project",
+    "storage_bucket": "cm2211group8project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690558849781:android:e635e9ffe029fcfbb46bbc",
+        "android_client_info": {
+          "package_name": "com.example.knockly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7o7UZnhVpqhuly7QqXAytUwJg48-pTrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
